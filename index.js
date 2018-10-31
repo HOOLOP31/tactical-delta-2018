@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var mongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://<dbuser>:<dbpassword>@ds141783.mlab.com:41783/tactical-delta-2018-db';
+var url = 'mongodb://admin:tacticaldelta2018@ds141783.mlab.com:41783/tactical-delta-2018-db';
 var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
@@ -21,11 +21,11 @@ var levels;
 
 // ------------------------------
 // ---------- INITIALIZATION ---------- //
-app.listen(port, function () => {
+app.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
-mongoClient.connect(url, init);
+mongoClient.connect(url, { useNewUrlParser: true }, init);
 
 function init (err, client)
 {
