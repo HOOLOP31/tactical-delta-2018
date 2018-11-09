@@ -46,7 +46,7 @@ app.get('/', function(req, res) {
 
 app.post("/getLevel", function (req,res){
     
-    levelsCollection.find({"name":req.body.name}).toArray(function(err, document){
+    levelsCollection.find({"name":req.body.nameLevel}).toArray(function(err, document){
       res.send(document.length);
         if(document.length != 0){
              // Stoppe la requete et revoie 1 seule valeur en parametre
