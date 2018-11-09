@@ -27,7 +27,7 @@ app.listen(port, () => {
 
 
 //
-mongoClient.connect(url, { useNewUrlParser: true }, init);
+mongoClient.connect(url, init);
 //
 //function init (err, client)
 //{
