@@ -5,9 +5,9 @@ var bodyParser = require("body-parser");
 var port       = process.env.PORT || 3000;
 var path       = require('path');
 
-//app.use(bodyParser.urlencoded({extended:false}));
-//app.use(bodyParser.json());
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 var mongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-db';
@@ -30,10 +30,8 @@ mongoClient.connect(url, init);
 //
 function init (err, client)
 {
-  db = client.db(dbName);
+  db = client;
   levelsCollection = db.collection('T_LEVELS');
-  
-  console.log("coucoucoucoucoucocuocuoc");
 }
 //
 //
@@ -41,7 +39,7 @@ function init (err, client)
 // ---------- REQUESTS ---------- //
 app.get('/', function(req, res) {
 //  res.send("La page fonctionne  sur le server");
-  res.send(levelsCollection.length);
+  res.send("Server work");
 });
 
 app.post("/getLevel", function (req,res){
