@@ -21,9 +21,9 @@ var path       = require('path');
 
 // ------------------------------
 // ---------- INITIALIZATION ---------- //
-//app.listen(port, () => {
-//  console.log('Server listening at port %d', port);
-//});
+app.listen(port, () => {
+  console.log('Server listening at port %d', port);
+});
 //
 //mongoClient.connect(url, { useNewUrlParser: true }, init);
 //
