@@ -32,8 +32,6 @@ function init (err, client)
 {
   db = client.db(dbName);
   levelsCollection = db.collection('T_LEVELS');
-  
-  //console.log(levelsCollection);
 }
 //
 //
