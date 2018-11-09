@@ -9,9 +9,9 @@ var path       = require('path');
 //app.use(bodyParser.json());
 //app.use(express.static(path.join(__dirname, 'public')));
 
-//var mongoClient = require('mongodb').MongoClient;
-//var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-db';
-//var dbName = 'tactical-delta-2018-db';
+var mongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-db';
+var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
 //var db;
@@ -24,6 +24,8 @@ var path       = require('path');
 app.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
+
+
 //
 //mongoClient.connect(url, { useNewUrlParser: true }, init);
 //
