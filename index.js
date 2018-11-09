@@ -37,7 +37,9 @@ function init (err, client)
 
 // ------------------------------
 // ---------- REQUESTS ---------- //
-
+app.get('/', function(req, res) {
+  res.send("La page fonctionne  sur le server");
+}
 
 
 // ------------------------------
