@@ -39,7 +39,7 @@ var path       = require('path');
 // ---------- REQUESTS ---------- //
 app.get('/', function(req, res) {
   res.send("La page fonctionne  sur le server");
-}
+});
 
 
 // ------------------------------
