@@ -29,12 +29,12 @@ app.listen(port, () => {
 //
 mongoClient.connect(url, init);
 //
-//function init (err, client)
-//{
-//  db = client.db(dbName);
-//  //users = db.collection('UserCollectionName');
-//  levels = client.db('T_LEVELS');
-//}
+function init (err, client)
+{
+  db = client.db(dbName);
+  users = db.collection('T_LEVELS');
+  //levels = client.db('T_LEVELS');
+}
 //
 //
 //// ------------------------------
