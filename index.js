@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var mongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://admin:tacticaldelta2018@ds141783.mlab.com:41783/tactical-delta-2018-db';
+var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-db';
 var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
@@ -43,24 +43,24 @@ app.get('/', function(req, res) {
 
 
 // ------------------------------
-// ---------- TESTS ---------- //
-app.post('/getLevelInfos', function(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  
-  levels.find({name:level1});
-  console.log(req.body);
-  /*levelName = req.body.levelName;
-  size = {
-    x : req.body.sizeX,
-    y : req.body.sizeY
-  }*/
-  
-  levels.find().toArray(function (err, document){
-    res.end(JSON.stringify(document));
-  });
-  
-  //res.send('Name : ' + levelName + ' // Size : ' + size.x + ', ' + size.y);
-});
+//// ---------- TESTS ---------- //
+//app.post('/getLevelInfos', function(req, res) {
+//  res.setHeader('Access-Control-Allow-Origin', '*');
+//  
+//  levels.find({name:level1});
+//  console.log(req.body);
+//  /*levelName = req.body.levelName;
+//  size = {
+//    x : req.body.sizeX,
+//    y : req.body.sizeY
+//  }*/
+//  
+//  levels.find().toArray(function (err, document){
+//    res.end(JSON.stringify(document));
+//  });
+//  
+//  //res.send('Name : ' + levelName + ' // Size : ' + size.x + ', ' + size.y);
+//});
 
 
 // ------------------------------
