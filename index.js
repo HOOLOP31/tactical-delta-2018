@@ -14,9 +14,9 @@ var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-
 var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
-//var db;
-//var users;
-//var levels;
+var db;
+var users;
+var levels;
 
 
 // ------------------------------
@@ -27,7 +27,7 @@ app.listen(port, () => {
 
 
 //
-//mongoClient.connect(url, { useNewUrlParser: true }, init);
+mongoClient.connect(url, { useNewUrlParser: true }, init);
 //
 //function init (err, client)
 //{
