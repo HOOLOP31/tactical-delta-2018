@@ -30,8 +30,10 @@ mongoClient.connect(url, init);
 //
 function init (err, client)
 {
+    if ( err ) console.log("errorInit////////////////////////////////////////////////");
+
   db = client.db(dbName);
-  levelsCollection = db.collection('T_LEVELS');
+  //levelsCollection = db.collection('T_LEVELS');
 }
 //
 //
