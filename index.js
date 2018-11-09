@@ -44,6 +44,36 @@ app.get('/', function(req, res) {
   res.send(levelsCollection.length);
 });
 
+app.post("/getLevel", function (req,res){
+    
+    levelsCollection.find({"name":req.body.name}).toArray(function(err, document){
+      res.send(document.length);
+        if(document.length != 0){
+             // Stoppe la requete et revoie 1 seule valeur en parametre
+          
+          
+//            var lCurrentHighestScore = parseFloat(JSON.stringify(document[0].progress[lNumberPlanet-1].levels[lNumberLevel-1].score));
+//            
+//            if(lScore > lCurrentHighestScore){
+//                
+//                lIndex = lNumberLevel - 1;
+//                updateVal["progress.$.levels." + lIndex + ".score"] = lScore;
+//                
+//                users.findOneAndUpdate({
+//                    "login":req.query.login, 
+//                    "progress.planet":lNumberPlanet, 
+//                    "progress.levels.level":lNumberLevel},
+//                    {$set: updateVal},
+//                    {upsert:true, returnOriginal:false});
+//                res.end(JSON.stringify(lScore)); 
+//            }
+//            else{
+//                res.end("false");
+//            }
+        }
+    });
+});
+
 
 // ------------------------------
 //// ---------- TESTS ---------- //
