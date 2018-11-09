@@ -15,8 +15,7 @@ var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
 var db;
-var users;
-var levels;
+var levelsCollection;
 
 
 // ------------------------------
@@ -32,8 +31,9 @@ mongoClient.connect(url, init);
 function init (err, client)
 {
   db = client.db(dbName);
-  users = db.collection('T_LEVELS');
-  //levels = client.db('T_LEVELS');
+  levelsCollection = db.collection('T_LEVELS');
+  
+  console.log(levelsCollection.length);
 }
 //
 //
