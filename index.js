@@ -5,37 +5,37 @@ var bodyParser = require("body-parser");
 var port       = process.env.PORT || 3000;
 var path       = require('path');
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(bodyParser.urlencoded({extended:false}));
+//app.use(bodyParser.json());
+//app.use(express.static(path.join(__dirname, 'public')));
 
-var mongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-db';
-var dbName = 'tactical-delta-2018-db';
+//var mongoClient = require('mongodb').MongoClient;
+//var url = 'mongodb://root:rootroot1@ds141783.mlab.com:41783/tactical-delta-2018-db';
+//var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
-var db;
-var users;
-var levels;
+//var db;
+//var users;
+//var levels;
 
 
 // ------------------------------
 // ---------- INITIALIZATION ---------- //
-app.listen(port, () => {
-  console.log('Server listening at port %d', port);
-});
-
-mongoClient.connect(url, { useNewUrlParser: true }, init);
-
-function init (err, client)
-{
-  db = client.db(dbName);
-  //users = db.collection('UserCollectionName');
-  levels = client.db('T_LEVELS');
-}
-
-
-// ------------------------------
+//app.listen(port, () => {
+//  console.log('Server listening at port %d', port);
+//});
+//
+//mongoClient.connect(url, { useNewUrlParser: true }, init);
+//
+//function init (err, client)
+//{
+//  db = client.db(dbName);
+//  //users = db.collection('UserCollectionName');
+//  levels = client.db('T_LEVELS');
+//}
+//
+//
+//// ------------------------------
 // ---------- REQUESTS ---------- //
 app.get('/', function(req, res) {
   res.send("La page fonctionne  sur le server");
