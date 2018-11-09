@@ -33,14 +33,15 @@ function init (err, client)
   db = client.db(dbName);
   levelsCollection = db.collection('T_LEVELS');
   
-  console.log(levelsCollection.length);
+  console.log("coucoucoucoucoucocuocuoc");
 }
 //
 //
 //// ------------------------------
 // ---------- REQUESTS ---------- //
 app.get('/', function(req, res) {
-  res.send("La page fonctionne  sur le server");
+//  res.send("La page fonctionne  sur le server");
+  res.send(levelsCollection.length);
 });
 
 
