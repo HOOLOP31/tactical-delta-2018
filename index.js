@@ -15,6 +15,7 @@ var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
 var db;
+var samplesCollection;
 var levelsCollection;
 
 
@@ -24,76 +25,79 @@ app.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
+mongoClient.connect(url, { useNewUrlParser: true }, init);
 
-//
-mongoClient.connect(url, init);
-//
 function init (err, client)
 {
-    if ( err ) console.log("errorInit////////////////////////////////////////////////");
-
   db = client.db(dbName);
-  //levelsCollection = db.collection('T_LEVELS');
+  samplesCollection = db.collection('T_SAMPLES');
+  levelsCollection = db.collection('T_LEVELS');
 }
-//
-//
-//// ------------------------------
+
+
+// ------------------------------
 // ---------- REQUESTS ---------- //
 app.get('/', function(req, res) {
-//  res.send("La page fonctionne  sur le server");
-  res.send("Server work");
-});
-
-app.post("/getLevel", function (req,res){
-    
-    levelsCollection.find({"name":req.body.nameLevel}).toArray(function(err, document){
-      res.send(document.length);
-        if(document.length != 0){
-             // Stoppe la requete et revoie 1 seule valeur en parametre
-          
-          
-//            var lCurrentHighestScore = parseFloat(JSON.stringify(document[0].progress[lNumberPlanet-1].levels[lNumberLevel-1].score));
-//            
-//            if(lScore > lCurrentHighestScore){
-//                
-//                lIndex = lNumberLevel - 1;
-//                updateVal["progress.$.levels." + lIndex + ".score"] = lScore;
-//                
-//                users.findOneAndUpdate({
-//                    "login":req.query.login, 
-//                    "progress.planet":lNumberPlanet, 
-//                    "progress.levels.level":lNumberLevel},
-//                    {$set: updateVal},
-//                    {upsert:true, returnOriginal:false});
-//                res.end(JSON.stringify(lScore)); 
-//            }
-//            else{
-//                res.end("false");
-//            }
-        }
-    });
+  res.send("Server is running");
 });
 
 
 // ------------------------------
-//// ---------- TESTS ---------- //
-//app.post('/getLevelInfos', function(req, res) {
-//  res.setHeader('Access-Control-Allow-Origin', '*');
-//  
-//  levels.find({name:level1});
-//  console.log(req.body);
-//  /*levelName = req.body.levelName;
-//  size = {
-//    x : req.body.sizeX,
-//    y : req.body.sizeY
-//  }*/
-//  
-//  levels.find().toArray(function (err, document){
-//    res.end(JSON.stringify(document));
-//  });
-//  
-//  //res.send('Name : ' + levelName + ' // Size : ' + size.x + ', ' + size.y);
-//});
+// ---------- TESTS ---------- //
+app.post("/getSampleData", function(req, res){
+  samplesCollection.find({"string":req.body.myString}).toArray(function(err, document){
+    res.send(document);
+  });
+});
+
+
+
+app.post("/getLevel", function (req,res){
+    
+    levelsCollection.find({"name":req.body.levelName}).toArray(function(err, document){
+      res.send(document);// Stoppe la requete et revoie 1 seule valeur en parametre
+        /*if(document.length != 0)
+        {
+            var lCurrentHighestScore = parseFloat(JSON.stringify(document[0].progress[lNumberPlanet-1].levels[lNumberLevel-1].score));
+            
+            if(lScore > lCurrentHighestScore){
+                
+                lIndex = lNumberLevel - 1;
+                updateVal["progress.$.levels." + lIndex + ".score"] = lScore;
+                
+                users.findOneAndUpdate({
+                    "login":req.query.login, 
+                    "progress.planet":lNumberPlanet, 
+                    "progress.levels.level":lNumberLevel},
+                    {$set: updateVal},
+                    {upsert:true, returnOriginal:false});
+                res.end(JSON.stringify(lScore)); 
+            }
+            else{
+                res.end("false");
+            }
+        }*/
+    });
+});
+
+
+
+/*app.post('/getLevelInfos', function(req, res) {
+  
+  levels.find({name:level1});
+  console.log(req.body);
+  //levelName = req.body.levelName;
+  //size = {
+  //  x : req.body.sizeX,
+  //  y : req.body.sizeY
+  //}
+  
+  levels.find().toArray(function (err, document){
+    res.end(JSON.stringify(document));
+  });
+  
+  //res.send('Name : ' + levelName + ' // Size : ' + size.x + ', ' + size.y);
+});*/
 
 
 // ------------------------------
