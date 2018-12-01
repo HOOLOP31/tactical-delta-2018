@@ -44,23 +44,6 @@ app.get('/', function(req, res)
     res.send("Server is running");
 });
 
-app.get("/connect", function(req, res)
-{
-    console.log("REQUEST::/connect");
-    
-    usersCollection.find({login:req.body.login}).toArray(function (err, document)
-    {
-        if(document.length > 0)
-        {
-            console.log("USER : " + req.body.login + " FOUND !");
-        }
-        else
-        {
-            console.log("CANNOT FIND USER : " + req.body.login);
-        }
-    });
-});
-
 /*app.get("/hasAnEmail", function(req, res)
 {
     console.log("REQUEST :: /hasAnEmail");
