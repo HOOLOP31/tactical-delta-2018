@@ -16,8 +16,8 @@ var dbName = 'tactical-delta-2018-db';
 /* - Collections - */
 var db;
 var samplesCollection;
-var levelsCollection;
 var usersCollection;
+var levelsCollection;
 
 
 // ------------------------------
@@ -42,6 +42,102 @@ function init (err, client)
 app.get('/', function(req, res)
 {
     res.send("Server is running");
+});
+
+app.post("/connectUser", function(req, res)
+{
+    console.log("REQUEST::/connectUser");
+    
+    usersCollection.find({login:req.body.login}).toArray(function (err, document)
+    {
+        if(document.length > 0)
+        {
+            res.end(JSON.stringify(document[0]));
+        }
+        else
+        {
+            var lNewUser =
+            {
+                "login": req.body.login,
+                "ftueDone": true,      /////////////////////////////// ICI PASSER A FALSE LORSQUE LA FTUE SERA PRETE //////////////////////////////////////////
+                "hc": 1000,
+                "sc": 10000,
+                "progress":
+                [
+                    {
+                        "areaId": 0,
+                        "unlocked": true,
+                        "levels":
+                        [
+                            {
+                                "levelId": 0,
+                                "unlocked": true,
+                                "score": 0,
+                                "stars": 0
+                            },
+                            {
+                                "levelId": 1,
+                                "unlocked": false,
+                                "score": 0,
+                                "stars": 0
+                            }
+                        ]
+                    },
+                    {
+                        "areaId": 1,
+                        "unlocked": false,
+                        "levels":
+                        [
+                            {
+                                "levelId": 0,
+                                "unlocked": false,
+                                "score": 0,
+                                "stars": 0
+                            },
+                            {
+                                "levelId": 1,
+                                "unlocked": false,
+                                "score": 0,
+                                "stars": 0
+                            },
+                            {
+                                "levelId": 2,
+                                "unlocked": false,
+                                "score": 0,
+                                "stars": 0
+                            }
+                        ]
+                    }
+                ],
+                "items":
+                [
+                    {
+                        "name": "item0",
+                        "amount": 0
+                    },
+                    {
+                        "name": "item1",
+                        "amount": 0
+                    }
+                ]
+            }
+            
+            usersCollection.insertOne(lNewUser);
+            res.end(JSON.stringify(lNewUser));
+        }
+    });
+});
+
+
+
+app.post("/getAllLevels", function(req, res)
+{
+    console.log("REQUEST::/getAllLevels");
+    
+    levelsCollection.find().toArray(function (err, document)
+    {
+        res.end(JSON.stringify(document));
+    });
 });
 
 /*app.get("/hasAnEmail", function(req, res)
@@ -309,7 +405,7 @@ app.get('/', function(req, res)
 // ---------- TESTS ---------- //
 app.post("/getSampleData", function(req, res)
 {
-  console.log("REQUEST :: /getSampleData");
+  console.log("REQUEST::/getSampleData");
   
   samplesCollection.find({"string":req.body.myString}).toArray(function(err, document)
   {
@@ -319,7 +415,7 @@ app.post("/getSampleData", function(req, res)
 
 app.post("/getTestData", function(req, res)
 {
-  console.log("REQUEST :: /getTestData");
+  console.log("REQUEST::/getTestData");
   
   samplesCollection.find({"thisString":req.body.myString}).toArray(function(err, document)
   {
@@ -332,7 +428,7 @@ app.post("/getTestData", function(req, res)
 
 app.post("/getLevel", function (req,res)
 {
-  console.log("REQUEST :: /getLevel");
+  console.log("REQUEST::/getLevel");
   
   levelsCollection.find({"name":req.body.levelName}).toArray(function(err, document)
   {
