@@ -36,6 +36,8 @@ function init (err, client)
     levelsCollection = db.collection('T_LEVELS');
 }
 
+// MIdlleware si répéttition
+// FindOne existe ac mongoDB !!!
 
 // ------------------------------
 // ---------- REQUESTS ---------- //
@@ -44,9 +46,10 @@ app.get('/', function(req, res)
     res.send("Server is running");
 });
 
+
 app.post("/connectUser", function(req, res)
 {
-    console.log("REQUEST::/connectUser");
+    console.log("REQUEST::" + req.path);
     
     usersCollection.find({login:req.body.login}).toArray(function (err, document)
     {
@@ -128,15 +131,63 @@ app.post("/connectUser", function(req, res)
     });
 });
 
-
-
 app.post("/getAllLevels", function(req, res)
 {
-    console.log("REQUEST::/getAllLevels");
+    console.log("REQUEST::" + req.path);
     
     levelsCollection.find().toArray(function (err, document)
     {
         res.end(JSON.stringify(document));
+    });
+});
+
+
+app.post("/sendLevel", function(req, res)
+{
+    console.log("REQUEST::" + req.path);
+    
+    var lFeedbackMessage;
+    
+    var lNewLevel = req.body.levelJson;
+    var lNewLevelJson = JSON.parse(lNewLevel);
+    
+    levelsCollection.find({areaId:lNewLevelJson.areaId, levelId:lNewLevelJson.levelId}).toArray(function (err, document)
+    {
+        if(document.length > 0)
+        {
+            if(document[0].version == lNewLevelJson.version)
+            {
+                lFeedbackMessage = "FAIL : Same level's version already exists on server, level NOT saved on server.";
+                console.log(lFeedbackMessage);
+                res.end(lFeedbackMessage);
+            }
+            else
+            {
+                if(lNewLevelJson.version > document[0].version)
+                {
+                    levelsCollection.deleteOne(document[0]);
+                    levelsCollection.insertOne(lNewLevelJson);
+                    
+                    lFeedbackMessage = "SUCCESS : New level's version saved on server.";
+                    console.log(lFeedbackMessage);
+                    res.end(lFeedbackMessage);
+                }
+                else
+                {
+                    lFeedbackMessage = "ERROR : Trying to save a previous version of this level, level NOT saved on server.";
+                    console.log(lFeedbackMessage);
+                    res.end(lFeedbackMessage);
+                }
+            }
+        }
+        else
+        {
+            levelsCollection.insertOne(lNewLevelJson);
+            
+            lFeedbackMessage = "SUCCESS : New level saved on server.";
+            console.log(lFeedbackMessage);
+            res.end(lFeedbackMessage);
+        }
     });
 });
 
@@ -403,16 +454,6 @@ app.post("/getAllLevels", function(req, res)
 
 // ------------------------------
 // ---------- TESTS ---------- //
-app.post("/getSampleData", function(req, res)
-{
-  console.log("REQUEST::/getSampleData");
-  
-  samplesCollection.find({"string":req.body.myString}).toArray(function(err, document)
-  {
-    res.send(document);
-  });
-});
-
 app.post("/getTestData", function(req, res)
 {
   console.log("REQUEST::/getTestData");
