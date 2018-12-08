@@ -141,6 +141,28 @@ app.post("/getAllLevels", function(req, res)
     });
 });
 
+app.post("/getLevel", function(req, res)
+{
+    console.log("REQUEST::" + req.path + " (areaId:" + req.body.areaId + ", levelId:" + req.body.levelId + ")");
+    
+    var lAreaId = parseInt(req.body.areaId, 10);
+    var lLevelId = parseInt(req.body.levelId, 10);
+    
+    levelsCollection.find({areaId:lAreaId, levelId:lLevelId}).toArray(function (err, document)
+    {
+        if(document.length > 0)
+        {
+            res.end(JSON.stringify(document[0]));
+        }
+        else
+        {
+            var lFeedbackMessage = "FAIL : There is no level " + lLevelId + " in area " + lAreaId + " saved on server.";
+            
+            console.log(lFeedbackMessage);
+            res.end(lFeedbackMessage);
+        }
+    });
+});
 
 app.post("/sendLevel", function(req, res)
 {
