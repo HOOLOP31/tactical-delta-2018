@@ -15,7 +15,6 @@ var dbName = 'tactical-delta-2018-db';
 
 /* - Collections - */
 var db;
-var samplesCollection;
 var usersCollection;
 var levelsCollection;
 
@@ -31,13 +30,13 @@ mongoClient.connect(url, { useNewUrlParser: true }, init);
 function init (err, client)
 {
     db = client.db(dbName);
-    samplesCollection = db.collection('T_SAMPLES');
     usersCollection = db.collection('T_USERS');
     levelsCollection = db.collection('T_LEVELS');
 }
 
 // MIdlleware si répéttition
 // FindOne existe ac mongoDB !!!
+
 
 // ------------------------------
 // ---------- REQUESTS ---------- //
@@ -131,13 +130,110 @@ app.post("/connectUser", function(req, res)
     });
 });
 
-app.post("/getAllLevels", function(req, res)
+app.post("/updateAllLevels", function(req, res)
 {
     console.log("REQUEST::" + req.path);
     
     levelsCollection.find().toArray(function (err, document)
     {
-        res.end(JSON.stringify(document));
+        if(document.length > 0)
+        {
+            var lNewLevelsArray = [];
+            var localLevelVersion;
+            
+            for (i = 0; i < document.length; i++)
+            {
+                if(document[i].areaId == 0 && document[i].levelId == 0)
+                {
+                    localLevelVersion = req.body.i0;
+                    console.log("Local 0/0 level's version: " + localLevelVersion);
+                    
+                    if (localLevelVersion == undefined)
+                    {
+                        console.log("Level 0/0 doesn't exist in local directory");
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else if(localLevelVersion < document[i].version)
+                    {
+                        console.log("New version available on server: " + document[i].version);
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else console.log("Latest version already acquired, server version: " + document[i].version);
+                }
+                if(document[i].areaId == 0 && document[i].levelId == 1)
+                {
+                    localLevelVersion = req.body.i1;
+                    console.log("Local 0/1 level's version: " + localLevelVersion);
+                    
+                    if (localLevelVersion == undefined)
+                    {
+                        console.log("Level 0/1 doesn't exist in local directory");
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else if(localLevelVersion < document[i].version)
+                    {
+                        console.log("New version available on server: " + document[i].version);
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else console.log("Latest version already acquired, server version: " + document[i].version);
+                }
+                if(document[i].areaId == 1 && document[i].levelId == 0)
+                {
+                    localLevelVersion = req.body.i2;
+                    console.log("Local 1/0 level's version: " + localLevelVersion);
+                    
+                    if (localLevelVersion == undefined)
+                    {
+                        console.log("Level 1/0 doesn't exist in local directory");
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else if(localLevelVersion < document[i].version)
+                    {
+                        console.log("New version available on server: " + document[i].version);
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else console.log("Latest version already acquired, server version: " + document[i].version);
+                }
+                if(document[i].areaId == 1 && document[i].levelId == 1)
+                {
+                    localLevelVersion = req.body.i3;
+                    console.log("Local 1/1 level's version: " + localLevelVersion);
+                    
+                    if (localLevelVersion == undefined)
+                    {
+                        console.log("Level 1/1 doesn't exist in local directory");
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else if(localLevelVersion < document[i].version)
+                    {
+                        console.log("New version available on server: " + document[i].version);
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else console.log("Latest version already acquired, server version: " + document[i].version);
+                }
+                if(document[i].areaId == 1 && document[i].levelId == 2)
+                {
+                    localLevelVersion = req.body.i4;
+                    console.log("Local 1/2 level's version: " + localLevelVersion);
+                    
+                    if (localLevelVersion == undefined)
+                    {
+                        console.log("Level 1/2 doesn't exist in local directory");
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else if(localLevelVersion < document[i].version)
+                    {
+                        console.log("New version available on server: " + document[i].version);
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else console.log("Latest version already acquired, server version: " + document[i].version);
+                }
+            }
+            
+            console.log(lNewLevelsArray.length);
+            res.end(JSON.stringify(lNewLevelsArray));
+        }
+        else console.log("No level found on server");
     });
 });
 
@@ -216,19 +312,6 @@ app.post("/sendLevel", function(req, res)
 
 // ------------------------------
 // ---------- TESTS ---------- //
-app.post("/getTestData", function(req, res)
-{
-  console.log("REQUEST::/getTestData");
-  
-  samplesCollection.find({"thisString":req.body.myString}).toArray(function(err, document)
-  {
-    //res.send(document);
-    //res.send(document[0]);
-    //res.send(JSON.stringify(document[0].length));
-    res.send(JSON.stringify(document[0]));
-  });
-});
-
 app.post("/getLevel", function (req,res)
 {
   console.log("REQUEST::/getLevel");
@@ -258,25 +341,6 @@ app.post("/getLevel", function (req,res)
     }*/
   });
 });
-
-
-
-/*app.post('/getLevelInfos', function(req, res) {
-  
-  levels.find({name:level1});
-  console.log(req.body);
-  //levelName = req.body.levelName;
-  //size = {
-  //  x : req.body.sizeX,
-  //  y : req.body.sizeY
-  //}
-  
-  levels.find().toArray(function (err, document){
-    res.end(JSON.stringify(document));
-  });
-  
-  //res.send('Name : ' + levelName + ' // Size : ' + size.x + ', ' + size.y);
-});*/
 
 
 // ------------------------------
