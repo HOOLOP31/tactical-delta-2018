@@ -309,6 +309,23 @@ app.post("/sendLevel", function(req, res)
     });
 });
 
+app.post("/buyHc", function(req, res)
+{
+    console.log("REQUEST::" + req.path);
+    
+    var hcBought = parseInt(req.body.hcBought, 10);
+    
+    usersCollection.findOneAndUpdate
+    (
+        {login:req.body.login},
+        {$inc:{"hc":hcBought}},
+        {returnOriginal:false},
+        function(err,document)
+        {
+            res.end(JSON.stringify(document.value.hc));
+        }
+    );
+});
 
 // ------------------------------
 // ---------- TESTS ---------- //
