@@ -62,8 +62,11 @@ app.post("/connectUser", function(req, res)
             {
                 "login": req.body.login,
                 "ftueDone": true,      /////////////////////////////// ICI PASSER A FALSE LORSQUE LA FTUE SERA PRETE //////////////////////////////////////////
-                "hc": 1000,
-                "sc": 10000,
+                "hc": 100,
+                "sc": 1000,
+                "movementSupply": 0,
+                "healthSupply": 0,
+                "attackSupply": 0,
                 "progress":
                 [
                     {
@@ -109,21 +112,6 @@ app.post("/connectUser", function(req, res)
                                 "stars": 0
                             }
                         ]
-                    }
-                ],
-                "items":
-                [
-                    {
-                        "name": "movementSupply",
-                        "amount": 0
-                    },
-                    {
-                        "name": "healthSupply",
-                        "amount": 0
-                    },
-                    {
-                        "name": "attackSupply",
-                        "amount": 0
                     }
                 ]
             }
@@ -327,6 +315,63 @@ app.post("/buyHc", function(req, res)
         function(err,document)
         {
             res.end(JSON.stringify(document.value.hc));
+        }
+    );
+});
+
+app.post("/buyMovementSupply", function(req, res)
+{
+    console.log("REQUEST::" + req.path);
+    
+    var hcSpent = parseInt(req.body.hc, 10);
+    var supplyBought = parseInt(req.body.movementSupply, 10);
+    
+    usersCollection.findOneAndUpdate
+    (
+        {login:req.body.login},
+        {$inc:{"hc":-hcSpent, "movementSupply":supplyBought}},
+        {returnOriginal:false},
+        function(err,document)
+        {
+            res.end(JSON.stringify({"hc":document.value.hc, "supply":document.value.movementSupply}));
+        }
+    );
+});
+
+app.post("/buyHealthSupply", function(req, res)
+{
+    console.log("REQUEST::" + req.path);
+    
+    var hcSpent = parseInt(req.body.hc, 10);
+    var supplyBought = parseInt(req.body.healthSupply, 10);
+    
+    usersCollection.findOneAndUpdate
+    (
+        {login:req.body.login},
+        {$inc:{"hc":-hcSpent, "healthSupply":supplyBought}},
+        {returnOriginal:false},
+        function(err,document)
+        {
+            res.end(JSON.stringify({"hc":document.value.hc, "supply":document.value.healthSupply}));
+        }
+    );
+});
+
+app.post("/buyAttackSupply", function(req, res)
+{
+    console.log("REQUEST::" + req.path);
+    
+    var hcSpent = parseInt(req.body.hc, 10);
+    var supplyBought = parseInt(req.body.attackSupply, 10);
+    
+    usersCollection.findOneAndUpdate
+    (
+        {login:req.body.login},
+        {$inc:{"hc":-hcSpent, "attackSupply":supplyBought}},
+        {returnOriginal:false},
+        function(err,document)
+        {
+            res.end(JSON.stringify({"hc":document.value.hc, "supply":document.value.attackSupply}));
         }
     );
 });
