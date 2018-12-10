@@ -114,11 +114,15 @@ app.post("/connectUser", function(req, res)
                 "items":
                 [
                     {
-                        "name": "item0",
+                        "name": "movementSupply",
                         "amount": 0
                     },
                     {
-                        "name": "item1",
+                        "name": "healthSupply",
+                        "amount": 0
+                    },
+                    {
+                        "name": "attackSupply",
                         "amount": 0
                     }
                 ]
