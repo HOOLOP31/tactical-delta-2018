@@ -275,7 +275,7 @@ app.post("/sendLevel", function(req, res)
         {
             if(document[0].version == lNewLevelJson.version)
             {
-                lFeedbackMessage = "FAIL : Same level's version already exists on server, level NOT saved on server.";
+                lFeedbackMessage = "FAIL : Same level's version already exists on server, level NOT saved on server. Server v: " + document[0].version + "Send v: " + lNewLevelJson.version;
                 console.log(lFeedbackMessage);
                 res.end(lFeedbackMessage);
             }
