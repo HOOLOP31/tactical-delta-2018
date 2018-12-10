@@ -286,13 +286,13 @@ app.post("/sendLevel", function(req, res)
                     levelsCollection.deleteOne(document[0]);
                     levelsCollection.insertOne(lNewLevelJson);
                     
-                    lFeedbackMessage = "SUCCESS : New level's version saved on server.";
+                    lFeedbackMessage = "SUCCESS : New level's version saved on server. Server v: " + document[0].version + "Send v: " + lNewLevelJson.version;
                     console.log(lFeedbackMessage);
                     res.end(lFeedbackMessage);
                 }
                 else
                 {
-                    lFeedbackMessage = "ERROR : Trying to save a previous version of this level, level NOT saved on server.";
+                    lFeedbackMessage = "ERROR : Trying to save a previous version of this level, level NOT saved on server. Server v: " + document[0].version + "Send v: " + lNewLevelJson.version;
                     console.log(lFeedbackMessage);
                     res.end(lFeedbackMessage);
                 }
