@@ -67,53 +67,24 @@ app.post("/connectUser", function(req, res)
                 "movementSupply": 0,
                 "healthSupply": 0,
                 "attackSupply": 0,
-                "progress":
-                [
-                    {
-                        "areaId": 0,
-                        "unlocked": true,
-                        "levels":
-                        [
-                            {
-                                "levelId": 0,
-                                "unlocked": true,
-                                "score": 0,
-                                "stars": 0
-                            },
-                            {
-                                "levelId": 1,
-                                "unlocked": false,
-                                "score": 0,
-                                "stars": 0
-                            }
-                        ]
-                    },
-                    {
-                        "areaId": 1,
-                        "unlocked": false,
-                        "levels":
-                        [
-                            {
-                                "levelId": 0,
-                                "unlocked": false,
-                                "score": 0,
-                                "stars": 0
-                            },
-                            {
-                                "levelId": 1,
-                                "unlocked": false,
-                                "score": 0,
-                                "stars": 0
-                            },
-                            {
-                                "levelId": 2,
-                                "unlocked": false,
-                                "score": 0,
-                                "stars": 0
-                            }
-                        ]
-                    }
-                ]
+                "area0":
+                {
+                    "unlocked": true,
+                    "statusLevel0": true,
+                    "statusLevel1": false,
+                    "scoreLevel0": 0,
+                    "scoreLevel1": 0
+                },
+                "area1":
+                {
+                    "unlocked": false,
+                    "statusLevel0": false,
+                    "statusLevel1": false,
+                    "statusLevel2": false,
+                    "scoreLevel0": 0,
+                    "scoreLevel1": 0,
+                    "scoreLevel2": 0
+                }
             }
             
             usersCollection.insertOne(lNewUser);
