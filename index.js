@@ -220,9 +220,26 @@ app.post("/updateAllLevels", function(req, res)
                     }
                     else console.log("Latest version already acquired, server version: " + document[i].version);
                 }
-                if(document[i].areaId == 99 && document[i].levelId == 99)
+                if(document[i].areaId == 1 && document[i].levelId == 3)
                 {
                     localLevelVersion = req.body.i5;
+                    console.log("Local 1/3 level's version: " + localLevelVersion);
+                    
+                    if (localLevelVersion == undefined)
+                    {
+                        console.log("Level 1/3 doesn't exist in local directory");
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else if(localLevelVersion < document[i].version)
+                    {
+                        console.log("New version available on server: " + document[i].version);
+                        lNewLevelsArray.push(document[i]);
+                    }
+                    else console.log("Latest version already acquired, server version: " + document[i].version);
+                }
+                if(document[i].areaId == 99 && document[i].levelId == 99)
+                {
+                    localLevelVersion = req.body.i6;
                     console.log("Local 99/99 level's version: " + localLevelVersion);
                     
                     if (localLevelVersion == undefined)
