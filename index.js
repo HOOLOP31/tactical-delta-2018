@@ -71,16 +71,16 @@ app.post("/connectUser", function(req, res)
                 {
                     "unlocked": true,
                     "statusLevel0": true,
-                    "statusLevel1": false,
+                    "statusLevel1": true,
                     "scoreLevel0": 0,
                     "scoreLevel1": 0
                 },
                 "area1":
                 {
-                    "unlocked": false,
-                    "statusLevel0": false,
-                    "statusLevel1": false,
-                    "statusLevel2": false,
+                    "unlocked": true,
+                    "statusLevel0": true,
+                    "statusLevel1": true,
+                    "statusLevel2": true,
                     "scoreLevel0": 0,
                     "scoreLevel1": 0,
                     "scoreLevel2": 0
