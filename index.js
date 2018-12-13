@@ -70,20 +70,35 @@ app.post("/connectUser", function(req, res)
                 "area0":
                 {
                     "unlocked": true,
-                    "statusLevel0": true,
-                    "statusLevel1": true,
                     "scoreLevel0": 3,
-                    "scoreLevel1": 1
+                    "statusLevel0": true,
+                    "mainObjectiveLevel0": true,
+                    "sec0ObjectiveLevel0": true,
+                    "sec1ObjectiveLevel0": true,
+                    "scoreLevel1": 1,
+                    "statusLevel1": true,
+                    "mainObjectiveLevel1": true,
+                    "sec0ObjectiveLevel1": false,
+                    "sec1ObjectiveLevel1": false
                 },
                 "area1":
                 {
                     "unlocked": true,
+                    "scoreLevel0": 2,
                     "statusLevel0": true,
-                    "statusLevel1": true,
-                    "statusLevel2": true,
-                    "scoreLevel0": 3,
+                    "mainObjectiveLevel0": true,
+                    "sec0ObjectiveLevel0": false,
+                    "sec1ObjectiveLevel0": true,
                     "scoreLevel1": 2,
-                    "scoreLevel2": 1
+                    "statusLevel1": true,
+                    "mainObjectiveLevel1": true,
+                    "sec0ObjectiveLevel1": true,
+                    "sec1ObjectiveLevel1": false,
+                    "scoreLevel2": 0, 
+                    "statusLevel2": true,
+                    "mainObjectiveLevel2": false,
+                    "sec0ObjectiveLevel2": false,
+                    "sec1ObjectiveLevel2": false
                 }
             }
             
