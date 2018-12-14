@@ -62,8 +62,8 @@ app.post("/connectUser", function(req, res)
             {
                 "login": req.body.login,
                 "ftueDone": true,      /////////////////////////////// ICI PASSER A FALSE LORSQUE LA FTUE SERA PRETE //////////////////////////////////////////
-                "hc": 100,
-                "sc": 1000,
+                "hc": 10,
+                "sc": 5,
                 "movementSupply": 0,
                 "healthSupply": 0,
                 "attackSupply": 0,
