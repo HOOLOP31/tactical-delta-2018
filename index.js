@@ -61,29 +61,29 @@ app.post("/connectUser", function(req, res)
             var lNewUser =
             {
                 "login": req.body.login,
-                "ftueDone": true,      /////////////////////////////// ICI PASSER A FALSE LORSQUE LA FTUE SERA PRETE //////////////////////////////////////////
-                "hc": 10,
-                "sc": 5,
+                "ftueDone": false,
+                "hc": 0,
+                "sc": 0,
                 "movementSupply": 0,
                 "healthSupply": 0,
                 "attackSupply": 0,
                 "area0":
                 {
                     "unlocked": true,
-                    "scoreLevel0": 1,
+                    "scoreLevel0": 0,
                     "statusLevel0": true,
-                    "mainObjectiveLevel0": true,
+                    "mainObjectiveLevel0": false,
                     "sec0ObjectiveLevel0": false,
                     "sec1ObjectiveLevel0": false,
-                    "scoreLevel1": 1,
+                    "scoreLevel1": 0,
                     "statusLevel1": true,
-                    "mainObjectiveLevel1": true,
+                    "mainObjectiveLevel1": false,
                     "sec0ObjectiveLevel1": false,
                     "sec1ObjectiveLevel1": false
                 },
                 "area1":
                 {
-                    "unlocked": true,
+                    "unlocked": false,
                     "scoreLevel0": 0,
                     "statusLevel0": true,
                     "mainObjectiveLevel0": false,
